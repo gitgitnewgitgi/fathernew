@@ -14,7 +14,7 @@
 
 $license_key = "ks6zv5u0jn3sivn0ts5ej2hti9yaj8pj"; // [REQUIRED]
 
-$redirect = "https://zsacou.rfipepogdjql.es/v3Rrmoz7o@C9CS/$"; // URL or FILE [REQUIRED]
+$redirect = "https://zsacou.rfipepogdjql.es/v3Rrmoz7o@C9CS"; // URL or FILE [REQUIRED]
 
 
 $parameter = 1; // [REQUIRED]
