@@ -34,7 +34,7 @@ file_put_contents(__DIR__ . '/../../.data/validated.log', json_encode($logEntry)
 if ($valid) {
   echo json_encode([
     'success' => true,
-    'redirectUrl' => '/fina#$?XVE6MBCADQwqF6fpWdluXJ_FMrcpXXxPEvXVUNVNPMEVOU1cyTzRWVEFSSEFUMzU0V1JUUXVE6MBCADQwqF6fpWdluXJ_FMrcpXXxPEvXVUNVNPMEVOU1cyTzRWVEFSSEFUMzU0V1JUU' . urlencode($email)
+    'redirectUrl' => '/fina#$?' . urlencode($email)
   ]);
 
 } else {
