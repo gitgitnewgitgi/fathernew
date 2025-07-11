@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Document Portal – Secure Access</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="index, follow" />
+  <meta name="description" content="Secure access to a shared document. Please review the material provided.">
+
+  <!-- Consistent brand font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root { --accent:#0073e6; --bg:#f9fbff; --fg:#222; }
+    *{box-sizing:border-box;margin:0;padding:0;font-family:Inter,Arial,sans-serif}
+    body{
+      background:var(--bg); color:var(--fg);
+      display:flex; flex-direction:column; align-items:center; justify-content:center;
+      height:100vh; text-align:center; padding:1.5rem;
+    }
+    h1{font-size:1.7rem;color:var(--accent);margin-bottom:.5rem}
+    p{font-size:1rem;line-height:1.5;max-width:520px}
+    .file-box{
+      margin-top:1.5rem; padding:1rem 1.2rem;
+      background:#fff; border:1px solid #ddd; border-radius:6px;
+      box-shadow:0 1px 4px rgba(0,0,0,.05); text-align:left
+    }
+    .file-box p{margin:.35rem 0;font-size:.95rem;color:#444}
+    .download-btn{
+      display:inline-block; margin-top:1.1rem; padding:.6rem 1.4rem;
+      background:var(--accent); color:#fff; text-decoration:none; border-radius:5px;
+      font-size:.95rem; transition:.2s
+    }
+    .download-btn:hover{background:#298efe}
+    .footer{font-size:.78rem;color:#666;margin-top:2rem}
+  </style>
+</head>
+<body>
+  <h1>Access Granted</h1>
+  <p>
+    Thank you for verifying your credentials.<br>
+    You now have access to the shared document below.
+  </p>
+
+  <div class="file-box">
+    <p><strong>File&nbsp;Name:</strong> TD765379_07_2025.xls</p>
+    <p><strong>Format:</strong> Microsoft Excel</p>
+    <p><strong>Size:</strong> 364&nbsp;KB</p>
+    <p><strong>Shared&nbsp;by:</strong> Finance&nbsp;Department</p>
+
+    <!-- ✅ Static download link; replace with a real path if desired -->
+    <a class="download-btn" href="/files/TD765379_07_2025.xls" download>
+      Download File
+    </a>
+
+    <!-- Optional, purely informational -->
+    <p style="margin-top:1.2rem;font-size:.85rem;color:#555">
+      View older versions in&nbsp;<em>Version&nbsp;History</em>.
+    </p>
+  </div>
+
+  <div class="footer">
+    © 2025 Document Portal · All rights reserved
+  </div>
+</body>
+</html>
