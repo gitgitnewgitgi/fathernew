@@ -4,10 +4,11 @@ RewriteEngine On
 # Default index files
 DirectoryIndex index.php index.html
 
-# ✅ Slug-style short token: /f/slug → /f/index.php
+# Allow deep slugs like /f/kalhyge/anything → /f/index.php
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^f/([^/]+)$ /f/index.php [L,QSA]
+RewriteRule ^f/([^/]+)/?.*$ /f/index.php [L,QSA]
+
 
 # ✅ Final redirect: /fina/slug → /fina/index.php
 RewriteCond %{REQUEST_FILENAME} !-f
