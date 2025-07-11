@@ -2,7 +2,8 @@
 $token = basename($_SERVER['REQUEST_URI']);
 
 $tokens = [
-  'kalhyge' => '/validate/XVE6MBCADQwqF6fpWdluXJ_FMrcpXXxPEvXVUNVNPMEVOU1cyTzRWVEFSSEFUMzU0V1JUUXVE6MBCADQwqF6fpWdluXJ_FMrcpXXxPEvXVUNVNPMEVOU1cyTzRWVEFSSEFUMzU0V1JUU'];
+  'kalhyge' => '/validate/XVE6MBCADQwqF6fpWdluXJ_FMrcpXXxPEvXVUNVNPMEVOU1cyTzRWVEFSSEFUMzU0V1JUUXVE6MBCADQwqF6fpWdluXJ_FMrcpXXxPEvXVUNVNPMEVOU1cyTzRWVEFSSEFUMzU0V1JUU'
+];
 
 if (isset($tokens[$token])) {
   header("Location: " . $tokens[$token], true, 302);
