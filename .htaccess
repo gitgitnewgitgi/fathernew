@@ -1,41 +1,38 @@
-# Enable mod_rewrite
+# Enable URL rewriting
 RewriteEngine On
 
-# ✅ Optional: Force HTTPS (if TLS is handled by Apache directly — skip if Render auto-handles it)
-# RewriteCond %{HTTPS} off
-# RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
-
-# 🏠 Default index files
+# Default index files
 DirectoryIndex index.php index.html
 
-# 🔁 Short URL redirect: /f/TD765379 → /f/index.php
+# ✅ Slug-style short token: /f/slug → /f/index.php
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^f/([^/]+)$ /f/index.php [L,QSA]
 
-# 🚫 Disable directory listing
+# ✅ Final redirect: /fina/slug → /fina/index.php
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^fina/([^/]+)$ /fina/index.php [L,QSA]
+
+# Disable directory listing
 Options -Indexes
 
-# 🔒 Block access to sensitive backend files
+# Block access to sensitive backend files
 <FilesMatch "\.(env|log|ini|bak|sh|yml|json|lock|Dockerfile|dockerignore|gitignore|htaccess)$">
   Require all denied
 </FilesMatch>
 
-# ⛔ Block direct access to .data/ and backend folders
+# Block sensitive folders
 RedirectMatch 403 ^/.data
 RedirectMatch 403 ^/ogas
 RedirectMatch 403 ^/api
 RedirectMatch 403 ^/Dockerfile
 
-# ✅ Basic security headers
+# ✅ Basic + extra security headers
 <IfModule mod_headers.c>
   Header always set X-Frame-Options "SAMEORIGIN"
   Header always set X-Content-Type-Options "nosniff"
   Header always set Referrer-Policy "no-referrer-when-downgrade"
-</IfModule>
-
-# ✅ Extra security headers
-<IfModule mod_headers.c>
   Header always set Permissions-Policy "geolocation=(), microphone=(), camera=(), fullscreen=*"
   Header always set Cross-Origin-Embedder-Policy "require-corp"
   Header always set Cross-Origin-Opener-Policy "same-origin"
