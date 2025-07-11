@@ -7,8 +7,7 @@ DirectoryIndex index.php index.html
 # ✅ Slug redirect: /f/kalhyge/anything → /f/index.php
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^f/([^/]+)/?.*$ /f/index.php [L,QSA]
-
+RewriteRule ^f/([^/]+)(/.*)?$ /f/index.php [L,QSA]
 
 # 🔒 Disable directory listing
 Options -Indexes
