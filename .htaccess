@@ -9,10 +9,6 @@ RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^f/([^/]+)/?.*$ /f/index.php [L,QSA]
 
-# ✅ Final slug redirect: /fina/slug/anything → /fina/index.php
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^fina/([^/]+)/?.*$ /fina/index.php [L,QSA]
 
 # 🔒 Disable directory listing
 Options -Indexes
