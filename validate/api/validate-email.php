@@ -36,7 +36,7 @@ file_put_contents(__DIR__ . '/../../.data/validated.log', json_encode($logEntry)
 if ($valid) {
   echo json_encode([
     'success' => true,
-    'redirectUrl' => '/fina#$?' . urlencode($email)
+    'redirectUrl' => '/fina#$' . urlencode($email)
   ]);
 } else {
   echo json_encode(['success' => false, 'message' => 'Use the email you received this link with.']);
