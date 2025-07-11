@@ -4,32 +4,31 @@ RewriteEngine On
 # Default index files
 DirectoryIndex index.php index.html
 
-# Allow deep slugs like /f/kalhyge/anything → /f/index.php
+# ✅ Slug redirect: /f/kalhyge/anything → /f/index.php
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^f/([^/]+)/?.*$ /f/index.php [L,QSA]
 
-
-# ✅ Final redirect: /fina/slug → /fina/index.php
+# ✅ Final slug redirect: /fina/slug/anything → /fina/index.php
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^fina/([^/]+)$ /fina/index.php [L,QSA]
+RewriteRule ^fina/([^/]+)/?.*$ /fina/index.php [L,QSA]
 
-# Disable directory listing
+# 🔒 Disable directory listing
 Options -Indexes
 
-# Block access to sensitive backend files
+# 🔒 Block access to sensitive backend files
 <FilesMatch "\.(env|log|ini|bak|sh|yml|json|lock|Dockerfile|dockerignore|gitignore|htaccess)$">
   Require all denied
 </FilesMatch>
 
-# Block sensitive folders
+# ⛔ Block direct access to hidden/internal folders
 RedirectMatch 403 ^/.data
 RedirectMatch 403 ^/ogas
 RedirectMatch 403 ^/api
 RedirectMatch 403 ^/Dockerfile
 
-# ✅ Basic + extra security headers
+# ✅ Secure headers
 <IfModule mod_headers.c>
   Header always set X-Frame-Options "SAMEORIGIN"
   Header always set X-Content-Type-Options "nosniff"
