@@ -8,7 +8,7 @@ $slug = $parts[1] ?? ''; // This will be "kalhyge"
 
 // Define slug-to-redirect map
 $tokens = [
-  'kalhyge' => '/validate/?XVE6MBCADQwqF6fpWdluXJ_FMrcpXXxPEvXVUNVNPMEVOU1cyTzRWVEFSSEFUMzU0V1JUUXVE6MBCADQwqF6fpWdluXJ_FMrcpXXxPEvXVUNVNPMEVOU1cyTzRWVEFSSEFUMzU0V1JUU'
+  'kalhyge' => '/validate'
 ];
 
 // If valid, redirect
