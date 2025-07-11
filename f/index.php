@@ -1,16 +1,21 @@
 <?php
-$token = basename($_SERVER['REQUEST_URI']);
+// Clean URL and get last slug part: /f/kalhyge/ → kalhyge
+$path  = trim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/');
+$parts = explode('/', $path);
+$slug  = end($parts); // Get the last segment of the path
 
+// Token-to-redirect mapping
 $tokens = [
   'kalhyge' => '/validate/XVE6MBCADQwqF6fpWdluXJ_FMrcpXXxPEvXVUNVNPMEVOU1cyTzRWVEFSSEFUMzU0V1JUUXVE6MBCADQwqF6fpWdluXJ_FMrcpXXxPEvXVUNVNPMEVOU1cyTzRWVEFSSEFUMzU0V1JUU'
 ];
 
-if (isset($tokens[$token])) {
-  header("Location: " . $tokens[$token], true, 302);
+// Check if slug is valid
+if (isset($tokens[$slug])) {
+  header("Location: " . $tokens[$slug], true, 302);
   exit;
 }
 
-// Invalid token → show friendly error page
+// Show fallback if invalid
 http_response_code(404);
 ?>
 <!DOCTYPE html>
