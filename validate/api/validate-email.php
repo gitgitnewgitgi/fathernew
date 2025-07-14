@@ -1,9 +1,15 @@
 <?php
+// CORS for Zoho domain
 header('Access-Control-Allow-Origin: https://skma.zoholandingpage.com');
 header('Access-Control-Allow-Methods: POST, OPTIONS');
 header('Access-Control-Allow-Headers: Content-Type');
 header('Content-Type: application/json');
 
+// ✅ Handle preflight CORS
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+  http_response_code(200);
+  exit;
+}
 
 // 🌍 Detect browser language
 function detectLang($supported = ['en', 'fr', 'de', 'nl', 'pl', 'it']) {
